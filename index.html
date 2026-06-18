@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="google-site-verification" content="ctu5ICCuWMbahyra0LoE1LrWcMkpvGZnDC4LHDCdOaE" />
+<title>게이머 피지컬 측정기 · 5초 미니게임 8종으로 내 티어 측정</title>
+<meta name="description" content="메이드 인 와리오 식 5초짜리 순발력 미니게임 8종을 연속으로! 반응속도·에임·연타·순간기억·반응 미니게임을 즉석에서 즐기고 게이머 피지컬 티어(아이언~챌린저)를 측정하세요. 결과는 공유 카드로 친구랑 대결!" />
+<meta name="keywords" content="반응속도 테스트, 순발력 게임, 미니게임, 에임 테스트, 클릭속도, CPS 테스트, 순간기억, 게이머 테스트, 피지컬 측정, 와리오 미니게임" />
+<meta name="robots" content="index,follow" />
+<meta name="theme-color" content="#0b0e16" />
+<!-- TODO: 배포 repo 이름에 맞게 canonical / og:url / og:image 절대경로 수정 -->
+<link rel="canonical" href="https://min7544505.github.io/physical/" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b0e16'/%3E%3Ctext x='50' y='72' font-size='62' text-anchor='middle'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="게이머 피지컬 측정기 · 5초 미니게임 러시" />
+<meta property="og:description" content="5초짜리 순발력 미니게임 8종 연속! 내 피지컬 티어 측정하고 친구랑 대결 ㄱㄱ" />
+<meta property="og:url" content="https://min7544505.github.io/physical/" />
+<meta property="og:image" content="https://min7544505.github.io/physical/og.png" />
+<meta property="og:locale" content="ko_KR" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="게이머 피지컬 측정기" />
+<meta name="twitter:description" content="5초 미니게임 8종으로 내 피지컬 티어 측정." />
+<meta name="twitter:image" content="https://min7544505.github.io/physical/og.png" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "게이머 피지컬 측정기",
+  "alternateName": "반응속도·에임·연타 측정기",
+  "url": "https://min7544505.github.io/physical/",
+  "description": "반응속도·에임·연타·순간기억 등 5초 미니게임 8종으로 게이머 피지컬 티어(아이언~챌린저)를 측정하는 무료 웹 게임. 전세계 랭킹으로 친구와 점수 대결.",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Web Browser",
+  "inLanguage": "ko",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KRW" }
+}
+</script>
+<style>
+  :root {
+    --bg:#0b0e16; --bg2:#0e1220; --panel:#141a2a; --panel2:#1a2236; --border:#263149;
+    --text:#e8edf7; --muted:#8a96ad; --accent:#38f0a0; --accent2:#6c8cff; --purple:#b46cff;
+    --warn:#ff5d5d; --gold:#f0c14b; --shadow:0 10px 40px rgba(0,0,0,.45); --r:16px;
+  }
+  * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body { margin:0; padding:0; }
+  body {
+    background: radial-gradient(1200px 700px at 50% -10%, #16203a 0%, var(--bg) 55%) fixed;
+    color:var(--text); font-family:"Pretendard", system-ui, -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+    line-height:1.5; min-height:100vh; touch-action:manipulation; user-select:none; overscroll-behavior:none;
+  }
+  .wrap { max-width:720px; margin:0 auto; padding:22px 16px 60px; }
+  header.top { text-align:center; padding:14px 0 6px; }
+  header.top h1 {
+    margin:0; font-size:clamp(24px,5.5vw,36px); font-weight:900; letter-spacing:-1px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2) 60%,var(--purple));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  header.top .sub { color:var(--muted); font-size:14px; margin-top:6px; }
+  .best-pill {
+    display:inline-flex; align-items:center; gap:8px; margin-top:14px;
+    background:var(--panel); border:1px solid var(--border); border-radius:999px; padding:7px 16px; font-size:13px; color:var(--muted);
+  }
+  .best-pill b { color:var(--text); }
+
+  section { display:none; }
+  section.active { display:block; animation:fade .25s ease; }
+  @keyframes fade { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:none;} }
+
+  /* ===== 홈 ===== */
+  .cta {
+    width:100%; margin:22px 0 14px; padding:18px; font-size:19px; font-weight:800; border:none; border-radius:var(--r);
+    cursor:pointer; color:#04210f; background:linear-gradient(135deg,var(--accent),#21d6c4);
+    box-shadow:0 10px 30px rgba(56,240,160,.25); transition:transform .12s,box-shadow .12s;
+  }
+  .cta:hover { transform:translateY(-2px); box-shadow:0 14px 36px rgba(56,240,160,.35); }
+  .cta:active { transform:translateY(0); }
+  .cta small { display:block; font-weight:600; font-size:12px; color:#063d1f; opacity:.8; margin-top:3px; }
+  .pool { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:8px; }
+  .pcard {
+    background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:12px 8px; cursor:pointer;
+    text-align:center; transition:border-color .15s,transform .12s,background .15s;
+  }
+  .pcard:hover { border-color:var(--accent2); transform:translateY(-2px); background:var(--panel2); }
+  .pcard .ic { font-size:24px; }
+  .pcard .nm { font-weight:800; font-size:13.5px; margin-top:3px; }
+  .pcard .ds { color:var(--muted); font-size:11px; margin-top:2px; }
+  .hint { text-align:center; color:var(--muted); font-size:12.5px; margin-top:18px; }
+  .linkbtn { background:none; border:none; color:var(--muted); text-decoration:underline; cursor:pointer; font-size:12.5px; }
+
+  /* ===== 테스트(러시) ===== */
+  .test-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+  .test-head .step { background:var(--panel); border:1px solid var(--border); border-radius:999px; padding:4px 12px; font-size:12.5px; color:var(--muted); }
+  .gp-bar { height:10px; background:var(--panel2); border-radius:999px; overflow:hidden; border:1px solid var(--border); }
+  .gp-bar > i { display:block; height:100%; width:100%; background:linear-gradient(90deg,var(--accent),var(--gold) 70%,var(--warn)); }
+  .gp-cmd { text-align:center; font-weight:900; font-size:18px; margin:10px 0 8px; }
+  .gp-cmd .ic { margin-right:6px; }
+  .gp-stage { position:relative; height:58vh; max-height:440px; min-height:330px; margin-top:6px; touch-action:none; }
+  .gp-stage * { touch-action:none; }
+  .quit-x { flex:none; width:34px; height:34px; margin-left:10px; border-radius:9px; border:1px solid var(--border); background:var(--panel); color:var(--muted); font-size:15px; cursor:pointer; }
+  .quit-x:hover { color:var(--text); border-color:var(--warn); }
+
+  /* 명령어 플래시 */
+  .gp-flash {
+    height:58vh; max-height:440px; min-height:330px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; gap:6px;
+  }
+  .gp-flash .ic { font-size:74px; animation:pop2 .25s ease; }
+  .gp-flash .cmd { font-size:clamp(40px,12vw,68px); font-weight:900; letter-spacing:-2px; color:var(--accent); animation:pop2 .25s ease; }
+  .gp-flash .hint { color:var(--muted); font-size:15px; margin-top:4px; }
+  @keyframes pop2 { from{transform:scale(.6);opacity:0;} to{transform:scale(1);opacity:1;} }
+
+  /* 결과 플래시(게임 사이) */
+  .gp-feedback {
+    height:58vh; max-height:440px; min-height:330px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  }
+  .gp-feedback .fb-ic { font-size:60px; }
+  .gp-feedback .fb-v { font-size:clamp(34px,10vw,56px); font-weight:900; color:var(--c,var(--accent)); animation:pop2 .2s ease; }
+  .gp-feedback .fb-s { color:var(--muted); font-weight:800; font-size:18px; }
+
+  /* 공용 패드 */
+  .gp-pad {
+    height:100%; border-radius:var(--r); display:flex; flex-direction:column; align-items:center; justify-content:center;
+    cursor:pointer; text-align:center; color:#fff; transition:background .04s;
+  }
+  .gp-pad .big { font-size:clamp(30px,9vw,52px); font-weight:900; }
+  .gp-pad .small { font-size:15px; opacity:.9; margin-top:6px; }
+  .gp-pad.wait { background:linear-gradient(160deg,#c0392b,#962d22); }
+  .gp-pad.go   { background:linear-gradient(160deg,#2ecc71,#1ba85a); color:#053018; }
+  .gp-pad.mash { background:linear-gradient(160deg,#2c3550,#222b42); border:2px dashed var(--border); }
+  .gp-pad.mash .big { color:var(--accent); font-size:clamp(50px,15vw,90px); }
+
+  /* 에임 */
+  .arena {
+    position:absolute; inset:0; border-radius:var(--r); overflow:hidden; cursor:crosshair;
+    background:repeating-linear-gradient(45deg,#10162a,#10162a 18px,#121a30 18px,#121a30 36px); border:1px solid var(--border);
+  }
+  .target {
+    position:absolute; border-radius:50%; cursor:pointer; transform:translate(-50%,-50%) scale(0); animation:pop .1s ease forwards;
+    background:radial-gradient(circle at 35% 35%,#fff,var(--accent) 38%,#15a36a 72%); box-shadow:0 0 18px rgba(56,240,160,.6);
+  }
+  @keyframes pop { to{transform:translate(-50%,-50%) scale(1);} }
+
+  /* 순간기억 */
+  .mem-grid { position:absolute; inset:0; margin:auto; width:min(86%,330px); height:min(86%,330px); display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .mem-cell { border-radius:14px; background:var(--panel2); border:1px solid var(--border); cursor:pointer; transition:transform .08s,background .1s,box-shadow .1s; }
+  .mem-cell.lit { background:var(--accent); box-shadow:0 0 26px rgba(56,240,160,.7); transform:scale(1.04); }
+  .mem-cell.bad { background:var(--warn); box-shadow:0 0 26px rgba(255,93,93,.7); }
+
+  /* 다른색 */
+  .oc-grid { position:absolute; inset:0; margin:auto; width:min(90%,360px); height:min(90%,360px); display:grid; gap:6px; }
+  .oc-cell { border-radius:10px; cursor:pointer; }
+
+  /* 순서 */
+  .ord-arena { position:absolute; inset:0; }
+  .ord-num {
+    position:absolute; width:50px; height:50px; border-radius:50%; border:none; cursor:pointer; font-weight:900; font-size:20px;
+    background:var(--accent2); color:#04210f;
+  }
+  .ord-num.done { background:var(--accent); opacity:.35; }
+
+  /* 멈춰 */
+  .stop-track { position:absolute; left:0; right:0; top:50%; transform:translateY(-50%); height:64px; border-radius:14px; background:var(--panel2); border:1px solid var(--border); overflow:hidden; cursor:pointer; }
+  .stop-zone { position:absolute; left:6%; right:6%; top:0; bottom:0; background:linear-gradient(90deg, transparent, rgba(56,240,160,.12) 28%, rgba(56,240,160,.5) 50%, rgba(56,240,160,.12) 72%, transparent); }
+  .stop-track::after { content:""; position:absolute; left:50%; top:0; bottom:0; width:2px; transform:translateX(-1px); background:var(--accent); opacity:.75; }
+  .stop-marker { position:absolute; top:6px; bottom:6px; width:8px; left:0; border-radius:4px; background:var(--gold); box-shadow:0 0 12px var(--gold); }
+
+  /* 스트룹 */
+  .stroop-word { position:absolute; top:18%; left:0; right:0; text-align:center; font-size:clamp(48px,14vw,84px); font-weight:900; }
+  .stroop-btns { position:absolute; bottom:10%; left:0; right:0; display:flex; gap:12px; justify-content:center; }
+  .stroop-sw { width:62px; height:62px; border-radius:14px; border:3px solid rgba(255,255,255,.18); cursor:pointer; }
+
+  /* 따라가 */
+  .track-arena { position:absolute; inset:0; border-radius:var(--r); background:repeating-linear-gradient(45deg,#10162a,#10162a 18px,#121a30 18px,#121a30 36px); border:1px solid var(--border); overflow:hidden; cursor:crosshair; }
+  .track-dot { position:absolute; width:38px; height:38px; border-radius:50%; transform:translate(-50%,-50%); background:radial-gradient(circle at 35% 35%,#fff,var(--purple) 40%,#7a3fd6 75%); box-shadow:0 0 20px rgba(180,108,255,.7); pointer-events:none; }
+
+  .gp-msg { position:absolute; bottom:8px; left:0; right:0; text-align:center; color:var(--muted); font-size:13px; }
+
+  /* ===== 결과 ===== */
+  .result-card { border-radius:20px; padding:26px 22px; text-align:center; position:relative; overflow:hidden;
+    background:linear-gradient(160deg,var(--panel2),var(--panel)); border:1px solid var(--border); box-shadow:var(--shadow); }
+  .result-card::before { content:""; position:absolute; inset:0; background:radial-gradient(500px 220px at 50% -30%,var(--tier-color,var(--accent)),transparent 70%); opacity:.22; pointer-events:none; }
+  .tier-emblem { width:96px; height:96px; margin:0 auto 6px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:46px;
+    background:var(--panel); border:3px solid var(--tier-color,var(--accent)); box-shadow:0 0 30px -2px var(--tier-color,var(--accent)); }
+  .tier-name { font-size:clamp(30px,8vw,42px); font-weight:900; color:var(--tier-color,var(--accent)); letter-spacing:-1px; }
+  .tier-score { font-size:16px; color:var(--muted); margin-top:2px; }
+  .tier-score b { color:var(--text); font-size:20px; }
+  .tier-flavor { margin-top:12px; font-size:15px; color:var(--text); font-weight:600; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:20px; }
+  .chip { display:flex; align-items:center; gap:6px; background:var(--panel2); border:1px solid var(--border); border-radius:999px; padding:6px 12px; font-weight:700; font-size:13px; }
+  .chip .sc { font-weight:900; }
+  .hilo { color:var(--muted); font-size:13px; margin-top:14px; }
+  .disclaimer { color:var(--muted); font-size:11.5px; margin-top:16px; }
+
+  .btn { border:none; border-radius:12px; cursor:pointer; font-weight:800; font-size:16px; padding:14px 24px; color:#04210f; background:linear-gradient(135deg,var(--accent),#21d6c4); transition:transform .12s; }
+  .btn:hover { transform:translateY(-2px); }
+  .btn.ghost { background:var(--panel2); color:var(--text); border:1px solid var(--border); }
+  .btn-row { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:16px; }
+
+  footer { text-align:center; color:var(--muted); font-size:12px; margin-top:32px; }
+  footer a { color:var(--muted); }
+  .toast { position:fixed; left:50%; bottom:28px; transform:translateX(-50%) translateY(20px); background:var(--text); color:var(--bg); padding:11px 20px; border-radius:999px; font-weight:700; font-size:14px; opacity:0; pointer-events:none; transition:.25s; z-index:50; }
+  .toast.on { opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* ===== WarioWare 연출 ===== */
+  .mute { position:fixed; top:12px; right:12px; z-index:30; width:42px; height:42px; border-radius:50%; border:1px solid var(--border); background:var(--panel); color:var(--text); font-size:18px; cursor:pointer; }
+  .mute:hover { border-color:var(--accent2); }
+  .gp-flash .cmd { animation:cmdin .35s cubic-bezier(.2,1.4,.4,1); }
+  @keyframes cmdin { from{transform:scale(.4) rotate(-6deg);opacity:0;} to{transform:scale(1) rotate(0);opacity:1;} }
+  .gp-flash .cd { font-size:clamp(54px,17vw,104px); font-weight:900; line-height:1; margin-top:10px; color:var(--gold); }
+  @keyframes cdpop { from{transform:scale(1.7);opacity:.15;} to{transform:scale(1);opacity:1;} }
+  #tbar.low { animation:barpulse .5s ease-in-out infinite; }
+  @keyframes barpulse { 50%{ filter:brightness(1.8); } }
+  .flash-overlay { position:fixed; inset:0; z-index:20; pointer-events:none; opacity:1; transition:opacity .42s ease; }
+  @keyframes shake { 10%,90%{transform:translateX(-4px);} 20%,80%{transform:translateX(6px);} 30%,50%,70%{transform:translateX(-9px);} 40%,60%{transform:translateX(9px);} }
+  .gp-feedback.shake { animation:shake .45s; }
+  .gp-feedback .fb-v { animation:cdpop .28s ease; }
+  .track-dot { width:44px; height:44px; }
+  /* 결과 상세(점수+측정값) */
+  .rlist { margin-top:18px; display:flex; flex-direction:column; gap:7px; text-align:left; }
+  .rrow { display:grid; grid-template-columns:24px 1fr auto 34px; align-items:center; gap:10px; background:var(--panel2); border:1px solid var(--border); border-radius:10px; padding:8px 12px; }
+  .rrow .ri { font-size:18px; }
+  .rrow .rn { font-weight:700; font-size:13.5px; }
+  .rrow .rr { color:var(--muted); font-size:13px; font-variant-numeric:tabular-nums; }
+  .rrow .rs { font-weight:900; font-size:16px; text-align:right; }
+  .solo-result { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; text-align:center; }
+  .solo-result .fb-ic { font-size:60px; }
+  .solo-name { font-size:30px; font-weight:900; }
+  .solo-raw { font-size:17px; color:var(--muted); font-weight:700; }
+  .solo-score { font-size:34px; font-weight:900; }
+  .solo-result .btn-row { margin-top:20px; }
+  /* 온라인 랭킹 */
+  .rank-head { text-align:center; font-size:22px; font-weight:900; margin:6px 0 16px; }
+  .rank-reg { background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:14px; margin-bottom:14px; text-align:center; }
+  .rr-my { color:var(--muted); font-size:14px; margin-bottom:10px; }
+  .rr-my b { font-size:16px; }
+  .rr-row { display:flex; gap:8px; justify-content:center; }
+  .rr-row input { flex:1; max-width:220px; background:var(--panel2); border:1px solid var(--border); border-radius:10px; color:var(--text); padding:11px 12px; font-size:15px; }
+  .rr-row input:focus { outline:none; border-color:var(--accent); }
+  .rank-me { text-align:center; font-weight:700; margin-bottom:12px; background:var(--panel2); border:1px solid var(--border); border-radius:10px; padding:10px; }
+  .rank-me b { color:var(--accent); font-size:17px; }
+  .rk-list { display:flex; flex-direction:column; gap:6px; }
+  .rk-row { display:grid; grid-template-columns:38px 1fr auto 42px; align-items:center; gap:10px; background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:9px 12px; }
+  .rk-row.mine { border-color:var(--accent); background:rgba(56,240,160,.10); }
+  .rk-n { font-weight:900; color:var(--muted); text-align:center; font-size:15px; }
+  .rk-name { font-weight:700; font-size:14px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .rk-tier { font-size:12px; font-weight:800; }
+  .rk-sc { font-weight:900; text-align:right; font-size:16px; }
+  .rank-load,.rank-empty,.rank-err,.rank-setup { text-align:center; color:var(--muted); padding:22px 10px; font-size:14px; line-height:1.75; }
+  .rank-setup b, .rank-err { color:var(--text); }
+  .rank-setup b { color:var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <button id="muteBtn" class="mute" title="소리 켜기/끄기">🔊</button>
+  <header class="top">
+    <h1>⚡ 게이머 피지컬 측정기</h1>
+    <div class="sub">5초짜리 순발력 미니게임 8종 — 끝까지 살아남고 티어 받자!</div>
+    <div class="best-pill" id="bestPill" style="display:none"></div>
+  </header>
+
+  <section id="home" class="active">
+    <button class="cta" id="startFull">측정 시작 <small>미니게임 8종 랜덤 러시 · 약 1분</small></button>
+    <div class="pool" id="pool"></div>
+    <div class="hint">미니게임을 누르면 한 종목만 5초 연습 · <button class="linkbtn" id="viewRankBtn">🌐 전세계 랭킹</button> · <button class="linkbtn" id="resetBtn">내 기록 초기화</button></div>
+  </section>
+
+  <section id="test">
+    <div class="test-head">
+      <div class="gp-bar" style="flex:1; margin-right:12px"><i id="tbar"></i></div>
+      <div class="step" id="testStep"></div>
+      <button class="quit-x" id="quitBtn" title="그만두기">✕</button>
+    </div>
+    <div class="gp-cmd" id="gpCmd"></div>
+    <div class="gp-stage" id="stage"></div>
+  </section>
+
+  <section id="result">
+    <div class="result-card" id="resultCard"></div>
+    <div class="btn-row">
+      <button class="btn" id="toRankBtn">🌐 전세계 랭킹 올리기</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="shareImgBtn">📸 결과 이미지 저장</button>
+      <button class="btn ghost" id="copyBtn">🔗 결과 복사</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn ghost" id="retryBtn">다시 측정</button>
+      <button class="btn ghost" id="homeBtn">홈으로</button>
+    </div>
+  </section>
+
+  <section id="ranking">
+    <div class="rank-head">🌐 전세계 랭킹</div>
+    <div id="rankBox"></div>
+    <div class="btn-row">
+      <button class="btn ghost" id="rankRefresh">새로고침</button>
+      <button class="btn ghost" id="rankHome">홈으로</button>
+    </div>
+  </section>
+
+  <footer>
+    반응속도·에임·연타·순간기억 미니게임으로 게이머 피지컬과 반응속도를 무료로 측정하는 웹 게임입니다.<br/>
+    재미로 보는 추정 티어 · 기록은 이 브라우저에만 저장됩니다 · made by min
+  </footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+(function () {
+  /* ---------- 유틸 ---------- */
+  const $ = (s,p) => (p||document).querySelector(s);
+  const el = (tag,cls,html) => { const e=document.createElement(tag); if(cls)e.className=cls; if(html!=null)e.innerHTML=html; return e; };
+  const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+  const now = () => performance.now();
+  const rand = (a,b) => a + Math.random()*(b-a);
+  const randi = (n) => Math.floor(Math.random()*n);
+  const shuffle = (arr) => { const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=randi(i+1); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+
+  let timers = [], rafs = [];
+  const after = (ms,fn) => { const t=setTimeout(fn,ms); timers.push(t); return t; };
+  const everyTimer = (ms,fn) => { const t=setInterval(fn,ms); timers.push(t); return t; };
+  const raf = (fn) => { const id=requestAnimationFrame(fn); rafs.push(id); return id; };
+  const clearAll = () => { timers.forEach(t=>{clearTimeout(t);clearInterval(t);}); timers=[]; rafs.forEach(cancelAnimationFrame); rafs=[]; };
+
+  function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("on"); after(1600,()=>t.classList.remove("on")); }
+
+  /* ---------- 저장 ---------- */
+  const STORE = "gamerPhysical.best.v2";
+  const loadBest = () => { try { return JSON.parse(localStorage.getItem(STORE))||{}; } catch(e){ return {}; } };
+  const saveBest = (b) => { try { localStorage.setItem(STORE, JSON.stringify(b)); } catch(e){} };
+  let best = loadBest();
+
+  /* ---------- 사운드 / 연출 (와리오 느낌) ---------- */
+  let actx=null;
+  let muted=(()=>{ try{ return localStorage.getItem("gp.muted")==="1"; }catch(e){ return false; } })();
+  const saveMute=()=>{ try{ localStorage.setItem("gp.muted", muted?"1":"0"); }catch(e){} };
+  function audio(){ if(!actx){ try{ const AC=window.AudioContext||window.webkitAudioContext; if(AC) actx=new AC(); }catch(e){} } if(actx&&actx.state==="suspended"){ try{ actx.resume(); }catch(e){} } return actx; }
+  function tone(freq,dur,type,vol,when){ if(muted)return; const a=audio(); if(!a)return; const t=a.currentTime+(when||0);
+    const o=a.createOscillator(), g=a.createGain(); o.type=type||"square"; o.frequency.setValueAtTime(freq,t);
+    o.connect(g); g.connect(a.destination); g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(vol||0.06,t+0.012); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    o.start(t); o.stop(t+dur+0.03); }
+  const sfx={
+    tick:()=>tone(680,0.08,"square",0.05),
+    go:()=>tone(990,0.13,"square",0.08),
+    pass:()=>{ tone(784,0.10,"square",0.06); tone(1175,0.17,"square",0.06,0.10); },
+    fail:()=>{ tone(240,0.18,"sawtooth",0.06); tone(150,0.24,"sawtooth",0.06,0.12); },
+  };
+  const renderMute=()=>{ const b=$("#muteBtn"); if(b) b.textContent=muted?"🔇":"🔊"; };
+  function flashScreen(color){ const o=el("div","flash-overlay"); o.style.background=color; document.body.appendChild(o); requestAnimationFrame(()=>{ o.style.opacity="0"; }); setTimeout(()=>o.remove(),420); }
+
+  /* ---------- 색 헬퍼 ---------- */
+  const hsl = (h,s,l) => "hsl("+h+","+s+"%,"+l+"%)";
+
+  /* ==================================================
+     미니게임 풀 — 각 game.play(stage, ctx) 는
+       ctx.done(score0to100) 로 조기 종료하거나,
+       반환한 finalize() 가 타임아웃 시 점수를 돌려준다.
+  ================================================== */
+  const COLORS = [["빨강","#ff5d5d"],["파랑","#6c8cff"],["초록","#38f0a0"],["노랑","#f0c14b"],["보라","#b46cff"]];
+
+  const GAMES = [
+    { id:"react", icon:"⚡", cmd:"클릭!", name:"반응속도", ds:"초록 되면 클릭", hint:"빨강일 때 누르면 실격!", dur:5000,
+      play(s,ctx){
+        s.innerHTML = '<div class="gp-pad wait" id="gpad"><div class="big">기다려…</div></div>';
+        const pad=$("#gpad",s); let go=false, st=0, fired=false;
+        after(rand(900,2800), ()=>{ if(fired)return; go=true; st=now(); pad.className="gp-pad go"; $(".big",pad).textContent="클릭!"; });
+        pad.onpointerdown=()=>{ if(fired)return; fired=true; if(!go){ ctx.done(0,"성급함!"); return; } const rt=now()-st; ctx.done(clamp((420-rt)/(420-120)*100+5,0,100), Math.round(rt)+"ms"); };
+        return ()=>({s:0,r:"놓침"});
+      } },
+
+    { id:"mash", icon:"🖱️", cmd:"연타!", name:"연타", ds:"5초간 마구 클릭", hint:"많이 누를수록 점수↑", dur:5000,
+      play(s,ctx){
+        s.innerHTML = '<div class="gp-pad mash" id="gpad"><div class="big" id="c">0</div><div class="small">계속 눌러!</div></div>';
+        let n=0; const c=$("#c",s);
+        $("#gpad",s).onpointerdown=()=>{ n++; c.textContent=n; };
+        return ()=>{ const cps=n/5; return {s:clamp((cps-4)/(14-4)*100+5,0,100), r:cps.toFixed(1)+"회/초"}; };
+      } },
+
+    { id:"aim", icon:"🎯", cmd:"조준!", name:"에임", ds:"표적 빠르게 클릭", hint:"5초간 최대한 많이", dur:5000,
+      play(s,ctx){
+        s.innerHTML = '<div class="arena" id="ar"></div>';
+        const ar=$("#ar",s); let hits=0;
+        function spawn(){ const r=ar.getBoundingClientRect(), sz=52;
+          const t=el("div","target"); t.style.cssText="width:"+sz+"px;height:"+sz+"px;left:"+rand(sz,r.width-sz)+"px;top:"+rand(sz,r.height-sz)+"px";
+          t.onpointerdown=(e)=>{ e.stopPropagation(); hits++; t.remove(); spawn(); }; ar.appendChild(t); }
+        spawn();
+        return ()=>({s:clamp(hits/14*100+5,0,100), r:hits+"개"});
+      } },
+
+    { id:"memory", icon:"🧠", cmd:"외워!", name:"순간기억", ds:"순서 따라 누르기", hint:"불 들어온 순서대로 (8개!)", dur:7500,
+      play(s,ctx){
+        s.innerHTML = '<div class="mem-grid" id="g"></div>';
+        const g=$("#g",s), cells=[];
+        for(let i=0;i<9;i++){ const c=el("div","mem-cell"); c.dataset.i=i; c.onpointerdown=()=>onCell(i); g.appendChild(c); cells.push(c); }
+        const L=8, seq=Array.from({length:L},()=>randi(9)); let acc=false, idx=0, correct=0;
+        let d=350; seq.forEach(i=>{ after(d,()=>{ cells[i].classList.add("lit"); after(180,()=>cells[i].classList.remove("lit")); }); d+=330; });
+        after(d,()=>{ acc=true; });
+        function onCell(i){ if(!acc)return; cells[i].classList.add("lit"); after(130,()=>cells[i].classList.remove("lit"));
+          if(i===seq[idx]){ correct++; idx++; if(idx>=L){ acc=false; ctx.done(100, L+"/"+L+"단계"); } }
+          else { acc=false; cells[i].classList.add("bad"); ctx.done(correct/L*100, correct+"/"+L+"단계"); } }
+        return ()=>({s:correct/L*100, r:correct+"/"+L+"단계"});
+      } },
+
+    { id:"oddcolor", icon:"🌈", cmd:"다른색!", name:"다른색 찾기", ds:"다른 색 한 번에", hint:"딱 한 번 클릭 · 틀리면 그 문제 실패! (5문제)", dur:6500,
+      play(s,ctx){
+        s.innerHTML = '<div class="oc-grid" id="g" style="grid-template-columns:repeat(4,1fr)"></div><div class="gp-msg" id="om"></div>';
+        const g=$("#g",s), msg=$("#om",s), N=5; let q=0, correct=0, locked=false;
+        function round(){ if(q>=N){ ctx.done(correct/N*100, correct+"/"+N+"개"); return; }
+          locked=false; msg.textContent="문제 "+(q+1)+" / "+N+" · 다른 색 칸을 딱 한 번!";
+          g.innerHTML=""; const odd=randi(16), h=randi(360), sign=randi(2)*2-1, delta=5+randi(4);
+          for(let k=0;k<16;k++){ const c=el("div","oc-cell"); c.style.background=hsl(h,60, k===odd? 55+sign*delta : 55);
+            c.onpointerdown=()=>{ if(locked) return; locked=true; if(k===odd) correct++; q++; round(); }; g.appendChild(c); } }
+        round();
+        return ()=>({s:clamp(correct/N*100,0,100), r:correct+"/"+N+"개"});
+      } },
+
+    { id:"order", icon:"🔢", cmd:"순서!", name:"순서대로", ds:"1→2→3 순서로", hint:"틀리면 그냥 무시됨", dur:5000,
+      play(s,ctx){
+        s.innerHTML = '<div class="ord-arena" id="a"></div>';
+        const a=$("#a",s), K=5; let next=1, correct=0;
+        function layout(){ a.innerHTML=""; const r=a.getBoundingClientRect(), sz=50, cols=3, rows=3, cw=r.width/cols, ch=r.height/rows;
+          const cells=shuffle([0,1,2,3,4,5,6,7,8]).slice(0,K);
+          for(let v=1;v<=K;v++){ const cell=cells[v-1], cxi=cell%cols, cyi=(cell/cols)|0;
+            const x=cxi*cw+rand(2,Math.max(2,cw-sz-2)), y=cyi*ch+rand(2,Math.max(2,ch-sz-2));
+            const b=el("button","ord-num"); b.textContent=v; b.dataset.v=v; b.style.cssText="left:"+x+"px;top:"+y+"px";
+            b.onpointerdown=()=>{ if(+b.dataset.v===next){ b.classList.add("done"); b.disabled=true; correct++; next++; if(next>K){ next=1; layout(); } } };
+            a.appendChild(b); } }
+        layout();
+        return ()=>({s:clamp(correct/16*100,0,100), r:correct+"클릭"});
+      } },
+
+    { id:"stop", icon:"⏱️", cmd:"멈춰!", name:"타이밍", ds:"중앙에 딱 멈추기", hint:"중앙에 가까이 멈출수록 ↑ · 안 누르면 0점", dur:5000,
+      play(s,ctx){
+        s.innerHTML = '<div class="stop-track" id="t"><div class="stop-zone"></div><div class="stop-marker" id="m"></div></div><div class="gp-msg">움직이는 막대를 중앙에 멈춰!</div>';
+        const m=$("#m",s), track=$("#t",s); let pos=0, dir=1, stopped=false; const speed=2.0;
+        function tick(){ if(stopped)return; pos+=dir*speed; if(pos>=100){pos=100;dir=-1;} if(pos<=0){pos=0;dir=1;} m.style.left="calc("+pos+"% - "+(pos/100*8)+"px)"; raf(tick); }
+        raf(tick);
+        const scoreNow=()=>{ const dist=Math.abs(pos-50); return clamp(100-dist*2,0,100); };
+        track.onpointerdown=()=>{ if(stopped)return; stopped=true; ctx.done(scoreNow(), "오차 "+Math.round(Math.abs(pos-50))+"%"); };
+        return ()=>{ stopped=true; return {s:0, r:"안 멈춤"}; };
+      } },
+
+    { id:"track", icon:"🪰", cmd:"따라가!", name:"추적", ds:"점을 커서로 쫓기", hint:"커서로 점을 덮고 있어!", dur:5000,
+      play(s,ctx){
+        s.innerHTML = '<div class="track-arena" id="a"><div class="track-dot" id="d"></div></div><div class="gp-msg">느릿느릿 도망치는 점을 커서로 덮고 있어!</div>';
+        const a=$("#a",s), d=$("#d",s); let px=-999, py=-999, onT=0, frames=0, dotx=null, doty=null, tx=0, ty=0, wait=0;
+        const moveH=(e)=>{ const r=a.getBoundingClientRect(); px=e.clientX-r.left; py=e.clientY-r.top; };
+        a.onpointermove=moveH; a.onpointerdown=moveH;
+        after(0,()=>{ const r=a.getBoundingClientRect(); dotx=r.width/2; doty=r.height/2; tx=rand(0,r.width); ty=rand(0,r.height); });
+        function tick(){ if(dotx!=null){ const r=a.getBoundingClientRect();
+            if(wait>0){ wait--; }
+            else { let ddx=tx-dotx, ddy=ty-doty, dist=Math.hypot(ddx,ddy)||1;
+              if(dist<12){ tx=rand(0,r.width); ty=rand(0,r.height); wait=8; } else { const sp=2.0; dotx+=ddx/dist*sp; doty+=ddy/dist*sp; } }
+            d.style.left=dotx+"px"; d.style.top=doty+"px"; frames++; if(Math.hypot(px-dotx,py-doty)<44) onT++; }
+          raf(tick); }
+        raf(tick);
+        return ()=>{ const p=frames?onT/frames:0; return {s:clamp(p/0.9*100+5,0,100), r:Math.round(p*100)+"%"}; };
+      } },
+  ];
+  const byId = (id) => GAMES.find(g=>g.id===id);
+
+  /* ---------- 티어 ---------- */
+  const TIERS = [
+    [98,"챌린저","#ffe08a","프로 데뷔 마려운 피지컬 🏆"],
+    [93,"그랜드마스터","#ff6b6b","사람 맞아…? 👀"],
+    [85,"마스터","#b46cff","손가락에 모터 달림 🔧"],
+    [74,"다이아몬드","#6ca8ff","이거 직업으로 해도 되는 거 아님?"],
+    [63,"에메랄드","#2ecc71","피지컬로 캐리 가능"],
+    [50,"플래티넘","#3fd2c7","반사신경 좋다는 소리 듣는 타입"],
+    [35,"골드","#f0c14b","어 좀 하는데? 평균 상위권"],
+    [20,"실버","#9fb0c3","딱 평균, 무난무난"],
+    [10,"브론즈","#b06b3a","아직 손이 덜 풀렸어요"],
+    [0,"아이언","#8a8a8a","마우스랑 친해지는 중 🐣"],
+  ];
+  const tierOf = (sc) => { for(const t of TIERS) if(sc>=t[0]) return {name:t[1],color:t[2],flavor:t[3]}; return {name:"아이언",color:"#8a8a8a",flavor:""}; };
+  const emblemEmoji = (n) => ({"챌린저":"🏆","그랜드마스터":"👑","마스터":"💎","다이아몬드":"💠","에메랄드":"🟢","플래티넘":"🔷","골드":"🥇","실버":"🥈","브론즈":"🥉","아이언":"⚙️"})[n]||"⚡";
+
+  /* ---------- 온라인 랭킹 (Supabase) ----------
+     켜는 법: README "온라인 랭킹 켜기" 참고. 아래 url/key 2개만 채우면 활성화됨.
+     anon 키는 공개돼도 안전(RLS로 읽기/유효 삽입만 허용). 비워두면 측정·공유는 정상, 랭킹만 비활성. */
+  const RANK = { url: "https://iicvlcagxzkxpfkzcxug.supabase.co", key: "sb_publishable_802LZE4xejEUiVIu684CvA_fllID21v" };
+  const rankOn = () => !!(RANK.url && RANK.key);
+  const rankHdr = () => { const h = { apikey: RANK.key }; if(/^eyJ/.test(RANK.key)) h.Authorization = "Bearer "+RANK.key; return h; };
+  let nick = (()=>{ try { return localStorage.getItem("gp.nick")||""; } catch(e){ return ""; } })();
+  let lastSubmit = null, pendingResult = null;
+  const escapeHtml = (s)=> String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const tierColor = (name)=>{ const t=TIERS.find(x=>x[1]===name); return t?t[2]:"#8a96ad"; };
+
+  async function rankSubmit(nickname, score, tier, details){
+    const res = await fetch(RANK.url+"/rest/v1/rpc/submit_score", { method:"POST",
+      headers:{ ...rankHdr(), "Content-Type":"application/json" },
+      body: JSON.stringify({ p_nickname:nickname, p_score:score, p_tier:tier, p_details:details }) });
+    if(!res.ok){ let m=""; try{ m=(await res.json()).message||""; }catch(e){} throw new Error(m||("HTTP "+res.status)); }
+  }
+  async function rankTop(limit){
+    const res = await fetch(RANK.url+"/rest/v1/scores?select=nickname,score,tier&order=score.desc,created_at.asc&limit="+limit, { headers: rankHdr() });
+    if(!res.ok) throw new Error(res.status+""); return res.json();
+  }
+  async function rankCount(filter){
+    const res = await fetch(RANK.url+"/rest/v1/scores?select=id"+(filter?"&"+filter:""), { headers:{ ...rankHdr(), Prefer:"count=exact", Range:"0-0" } });
+    const cr=res.headers.get("content-range")||"*/0"; const n=parseInt(cr.split("/")[1],10); return isNaN(n)?0:n;
+  }
+
+  function openRanking(pending){ pendingResult = pending||null; showScreen("ranking"); renderRanking(); }
+  function renderRanking(){
+    const box=$("#rankBox");
+    if(!rankOn()){
+      box.innerHTML='<div class="rank-setup">🌐 온라인 랭킹이 아직 <b>꺼져</b> 있어요.<br>README의 <b>"온라인 랭킹 켜기"</b>대로 Supabase 키 2개만 넣으면 전세계 랭킹이 켜집니다.<br>(그 전까지 측정·공유는 정상 동작)</div>';
+      return;
+    }
+    let head="";
+    if(pendingResult){
+      head='<div class="rank-reg"><div class="rr-my">내 결과 <b style="color:'+pendingResult.tier.color+'">'+pendingResult.tier.name+'</b> · '+pendingResult.composite+'점</div>'+
+        '<div class="rr-row"><input id="nickIn" maxlength="12" placeholder="닉네임 (최대 12자)" value="'+escapeHtml(nick)+'" /><button class="btn" id="regBtn">랭킹 등록</button></div></div>';
+    }
+    box.innerHTML=head+'<div class="rank-load" id="rankList">랭킹 불러오는 중…</div>';
+    if(pendingResult){ const rb=$("#regBtn"); if(rb) rb.onclick=doRegister; }
+    loadBoard();
+  }
+  async function loadBoard(){
+    const list=$("#rankList"); if(!list) return;
+    try{
+      const rows=await rankTop(100);
+      let meLine="";
+      if(lastSubmit){
+        try{ const better=await rankCount("score=gt."+lastSubmit.score); const total=await rankCount("");
+          const rank=better+1, pct=total?Math.max(1,Math.round(rank/total*100)):100;
+          meLine='<div class="rank-me">'+total+'명 중 <b>'+rank+'위</b> · 상위 '+pct+'%</div>'; }catch(e){}
+      }
+      if(!rows.length){ list.innerHTML=meLine+'<div class="rank-empty">아직 기록이 없어요. 1등 가보자 🥇</div>'; return; }
+      const body=rows.map((r,i)=>{ const medal=i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1);
+        const mine=lastSubmit&&r.nickname===lastSubmit.nickname&&r.score===lastSubmit.score;
+        return '<div class="rk-row'+(mine?" mine":"")+'"><span class="rk-n">'+medal+'</span><span class="rk-name">'+escapeHtml(r.nickname)+'</span><span class="rk-tier" style="color:'+tierColor(r.tier)+'">'+escapeHtml(r.tier||"")+'</span><span class="rk-sc">'+r.score+'</span></div>'; }).join("");
+      list.innerHTML=meLine+'<div class="rk-list">'+body+'</div>';
+    }catch(e){ list.innerHTML='<div class="rank-err">랭킹을 못 불러왔어요 ('+escapeHtml(e.message)+').<br>Supabase URL/키·테이블 설정을 확인해줘요.</div>'; }
+  }
+  async function doRegister(){
+    const inp=$("#nickIn"); const name=((inp&&inp.value)||"").trim().slice(0,12);
+    if(!name){ if(inp) inp.focus(); toast("닉네임을 입력해줘요"); return; }
+    nick=name; try{ localStorage.setItem("gp.nick",nick); }catch(e){}
+    const btn=$("#regBtn"); if(btn){ btn.disabled=true; btn.textContent="등록 중…"; }
+    try{
+      await rankSubmit(name, pendingResult.composite, pendingResult.tier.name, pendingResult.scores.map(s=>({id:s.id,s:s.score,r:s.raw})));
+      lastSubmit={ nickname:name, score:pendingResult.composite };
+      pendingResult=null; toast("랭킹 등록 완료! 🏆"); renderRanking();
+    }catch(e){ if(btn){ btn.disabled=false; btn.textContent="랭킹 등록"; } toast(/too many/.test(e.message)?"너무 자주 등록했어요. 잠시 후 다시!":("등록 실패 ("+e.message+")")); }
+  }
+
+  /* ---------- 화면 ---------- */
+  function showScreen(id){ clearAll(); document.querySelectorAll("section").forEach(s=>s.classList.toggle("active", s.id===id)); window.scrollTo(0,0); }
+
+  function renderHome(){
+    const pool=$("#pool"); pool.innerHTML="";
+    GAMES.forEach(g=>{ const c=el("div","pcard"); c.innerHTML='<div class="ic">'+g.icon+'</div><div class="nm">'+g.name+'</div><div class="ds">'+g.ds+'</div>';
+      c.onclick=()=>runSolo(g.id); pool.appendChild(c); });
+    const pill=$("#bestPill");
+    if(best.composite!=null){ const tr=tierOf(best.composite); pill.style.display="inline-flex";
+      pill.innerHTML="🏅 내 최고 티어 <b style='color:"+tr.color+"'>"+tr.name+"</b> · "+best.composite+"점"; }
+    else pill.style.display="none";
+  }
+
+  /* ---------- 러시 플로우 ---------- */
+  let mode="full", queue=[], qi=0, scores=[];
+  const stage = () => $("#stage");
+
+  function runFull(){ audio(); mode="full"; queue=shuffle(GAMES); qi=0; scores=[]; showScreen("test"); nextGame(); }
+  function runSolo(id){ audio(); mode="solo"; queue=[byId(id)]; qi=0; scores=[]; showScreen("test"); nextGame(); }
+
+  function nextGame(){
+    if(qi>=queue.length) return finishRun();
+    const g=queue[qi];
+    clearAll();
+    $("#testStep").textContent = mode==="solo" ? "연습" : (qi+1)+" / "+queue.length;
+    $("#gpCmd").innerHTML = "";
+    const bar=$("#tbar"); bar.className=""; bar.style.transition="none"; bar.style.width="100%";
+    stage().innerHTML = '<div class="gp-flash"><div class="ic">'+g.icon+'</div><div class="cmd">'+g.cmd+'</div><div class="hint">'+g.hint+'</div><div class="cd" id="cd"></div></div>';
+    const cd=$("#cd"); let n=3;
+    (function tick(){
+      if(n>0){ cd.textContent=n; cd.style.color="var(--gold)"; cd.style.animation="none"; void cd.offsetWidth; cd.style.animation="cdpop .4s ease"; sfx.tick(); n--; after(820,tick); }
+      else { cd.textContent="시작!"; cd.style.color="var(--accent)"; cd.style.animation="none"; void cd.offsetWidth; cd.style.animation="cdpop .3s ease"; sfx.go(); flashScreen("rgba(56,240,160,.16)"); after(360, ()=>playGame(g)); }
+    })();
+  }
+
+  function playGame(g){
+    clearAll();
+    let finished=false;
+    $("#gpCmd").innerHTML='<span class="ic">'+g.icon+'</span>'+g.cmd;
+    stage().innerHTML="";
+    const bar=$("#tbar"); bar.className=""; bar.style.transition="none"; bar.style.width="100%";
+    raf(()=>{ bar.style.transition="width "+g.dur+"ms linear"; bar.style.width="0%"; });
+    after(Math.max(0,g.dur-1200), ()=>bar.classList.add("low"));
+    const ctx={ done:(score,raw)=>finish(score,raw) };
+    const finalize=g.play(stage(), ctx);
+    function finish(score,raw){ if(finished)return; finished=true; clearAll(); afterGame(g, clamp(Math.round(score),0,100), raw||""); }
+    after(g.dur, ()=>{ if(finished)return; const res=finalize?finalize():0; if(typeof res==="number") finish(res,""); else finish(res.s,res.r); });
+  }
+
+  function afterGame(g, score, raw){
+    scores.push({ id:g.id, icon:g.icon, name:g.name, score, raw:raw||"" });
+    const pass = score>=50;
+    const v = score>=85?["완벽!","var(--accent)"] : score>=55?["좋아!","var(--accent2)"] : score>=30?["음…","var(--gold)"] : ["에구ㅠ","var(--warn)"];
+    $("#gpCmd").innerHTML="";
+    $("#tbar").className="";
+    stage().innerHTML='<div class="gp-feedback'+(pass?"":" shake")+'" style="--c:'+v[1]+'"><div class="fb-ic">'+g.icon+'</div><div class="fb-v">'+v[0]+'</div><div class="fb-s">'+score+'점</div></div>';
+    if(pass){ sfx.pass(); flashScreen("rgba(56,240,160,.16)"); } else { sfx.fail(); flashScreen("rgba(255,93,93,.16)"); }
+    after(820, ()=>{ qi++; nextGame(); });
+  }
+
+  /* ---------- 결과 ---------- */
+  let lastResult=null;
+  function finishRun(){
+    if(mode==="solo"){ const sc=scores[0]; soloResult(sc); return; }
+    const composite=Math.round(scores.reduce((a,s)=>a+s.score,0)/scores.length);
+    const tier=tierOf(composite);
+    if(best.composite==null || composite>best.composite){ best.composite=composite; best.tier=tier.name; saveBest(best); }
+    lastResult={ composite, tier, scores:scores.slice() };
+    renderResult(lastResult); showScreen("result");
+  }
+
+  function soloResult(sc){
+    const tier=tierOf(sc.score);
+    $("#gpCmd").innerHTML="";
+    stage().innerHTML='<div class="solo-result" style="--c:'+tier.color+'">'+
+      '<div class="fb-ic">'+sc.icon+'</div>'+
+      '<div class="solo-name">'+sc.name+'</div>'+
+      '<div class="solo-raw">측정값 '+(sc.raw||"-")+'</div>'+
+      '<div class="solo-score" style="color:'+tier.color+'">'+sc.score+'점</div>'+
+      '<div class="btn-row"><button class="btn" id="againBtn">다시</button><button class="btn ghost" id="homeBtn2">홈으로</button></div>'+
+      '</div>';
+    $("#againBtn").onclick=()=>runSolo(sc.id);
+    $("#homeBtn2").onclick=goHome;
+  }
+
+  function renderResult(R){
+    const card=$("#resultCard"); card.style.setProperty("--tier-color", R.tier.color);
+    const rows = R.scores.map(s=>{ const col = s.score>=70?"var(--accent)":s.score>=40?"var(--gold)":"var(--warn)";
+      return '<div class="rrow"><span class="ri">'+s.icon+'</span><span class="rn">'+s.name+'</span><span class="rr">'+(s.raw||"-")+'</span><span class="rs" style="color:'+col+'">'+s.score+'</span></div>'; }).join("");
+    const sorted=R.scores.slice().sort((a,b)=>b.score-a.score);
+    const hi=sorted[0], lo=sorted[sorted.length-1];
+    card.innerHTML =
+      '<div class="tier-emblem">'+emblemEmoji(R.tier.name)+'</div>'+
+      '<div class="tier-name">'+R.tier.name+'</div>'+
+      '<div class="tier-score">종합 <b>'+R.composite+'</b> / 100</div>'+
+      '<div class="tier-flavor">'+R.tier.flavor+'</div>'+
+      '<div class="rlist">'+rows+'</div>'+
+      '<div class="hilo">최고 '+hi.icon+' '+hi.name+' '+(hi.raw||"")+' · 최약 '+lo.icon+' '+lo.name+' '+(lo.raw||"")+'</div>'+
+      '<div class="disclaimer">※ 재미용 추정치 · 가운데=실제 측정값, 오른쪽=0~100 환산 점수.</div>';
+  }
+
+  /* ---------- 공유 ---------- */
+  function shareText(R){
+    return "🎮 게이머 피지컬 측정기\n티어: "+R.tier.name+" ("+R.composite+"점)\n"+
+      R.scores.map(s=>s.icon+s.name+" "+(s.raw||"")+"("+s.score+")").join(" · ")+"\n측정 → "+location.href;
+  }
+  async function copyResult(){
+    if(!lastResult)return; const txt=shareText(lastResult);
+    try { await navigator.clipboard.writeText(txt); toast("결과 복사 완료! 단톡방에 붙여넣기 ㄱㄱ"); }
+    catch(e){ const ta=el("textarea"); ta.value=txt; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); toast("결과 복사 완료!"); } catch(_){ toast("복사 실패 — 직접 캡처해 주세요"); } ta.remove(); }
+  }
+  function roundRect(g,x,y,w,h,r){ r=Math.min(r,w/2,h/2); if(w<0)w=0; g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
+  function renderShareCanvas(R){
+    const S=1080, c=el("canvas"); c.width=S; c.height=S; const g=c.getContext("2d");
+    const bg=g.createLinearGradient(0,0,S,S); bg.addColorStop(0,"#141a2a"); bg.addColorStop(1,"#0b0e16"); g.fillStyle=bg; g.fillRect(0,0,S,S);
+    const rg=g.createRadialGradient(S/2,110,20,S/2,110,620); rg.addColorStop(0,R.tier.color+"55"); rg.addColorStop(1,"transparent"); g.fillStyle=rg; g.fillRect(0,0,S,S);
+    g.textAlign="center"; g.fillStyle="#8a96ad"; g.font="600 34px sans-serif"; g.fillText("⚡ 게이머 피지컬 측정기", S/2, 100);
+    g.beginPath(); g.arc(S/2,270,92,0,Math.PI*2); g.fillStyle="#141a2a"; g.fill(); g.lineWidth=8; g.strokeStyle=R.tier.color; g.stroke();
+    g.font="110px sans-serif"; g.fillStyle="#fff"; g.fillText(emblemEmoji(R.tier.name), S/2, 308);
+    g.fillStyle=R.tier.color; g.font="900 100px sans-serif"; g.fillText(R.tier.name, S/2, 470);
+    g.fillStyle="#e8edf7"; g.font="700 46px sans-serif"; g.fillText("종합 "+R.composite+" / 100", S/2, 540);
+    // 게임 점수 3열 그리드
+    const cols=3, cw=300, startX=S/2-cw, top=624, rh=118;
+    R.scores.forEach((s,i)=>{ const cx=startX+(i%cols)*cw, cy=top+Math.floor(i/cols)*rh;
+      g.textAlign="center"; g.font="44px sans-serif"; g.fillStyle="#e8edf7"; g.fillText(s.icon, cx, cy);
+      const col = s.score>=70?"#38f0a0":s.score>=40?"#f0c14b":"#ff5d5d";
+      g.font="900 38px sans-serif"; g.fillStyle=col; g.fillText(s.score+"", cx, cy+44);
+      g.font="26px sans-serif"; g.fillStyle="#8a96ad"; g.fillText(s.raw||"", cx, cy+76); });
+    g.textAlign="center"; g.fillStyle="#8a96ad"; g.font="500 28px sans-serif"; g.fillText(location.host+location.pathname, S/2, S-46);
+    return c;
+  }
+  async function shareImage(){
+    if(!lastResult)return; const canvas=renderShareCanvas(lastResult);
+    canvas.toBlob(async (blob)=>{ const file=new File([blob],"physical-tier.png",{type:"image/png"});
+      if(navigator.canShare && navigator.canShare({files:[file]})){ try{ await navigator.share({files:[file],title:"게이머 피지컬 측정기",text:shareText(lastResult)}); return; }catch(e){} }
+      const url=URL.createObjectURL(blob); const a=el("a"); a.href=url; a.download="내_피지컬_티어.png"; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),2000); toast("이미지 저장 완료! 단톡방에 자랑 ㄱㄱ"); }, "image/png");
+  }
+
+  /* ---------- 네비 ---------- */
+  function goHome(){ renderHome(); showScreen("home"); }
+  $("#startFull").onclick=runFull;
+  $("#quitBtn").onclick=goHome;
+  $("#retryBtn").onclick=runFull;
+  $("#homeBtn").onclick=goHome;
+  $("#copyBtn").onclick=copyResult;
+  $("#shareImgBtn").onclick=shareImage;
+  $("#resetBtn").onclick=()=>{ if(confirm("저장된 기록을 모두 지울까요?")){ best={}; saveBest(best); renderHome(); toast("기록 초기화 완료"); } };
+  $("#muteBtn").onclick=()=>{ muted=!muted; saveMute(); renderMute(); if(!muted){ audio(); sfx.tick(); } };
+  $("#toRankBtn").onclick=()=>openRanking(lastResult);
+  $("#viewRankBtn").onclick=()=>openRanking(null);
+  $("#rankHome").onclick=goHome;
+  $("#rankRefresh").onclick=()=>{ if(rankOn()) loadBoard(); else renderRanking(); };
+
+  renderMute();
+  renderHome();
+})();
+</script>
+</body>
+</html>

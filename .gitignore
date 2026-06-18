@@ -1,0 +1,6 @@
+# 로컬/dev 산출물 (배포에 불필요)
+.claude/
+node_modules/
+# 공유 이미지 테스트 다운로드
+내_피지컬_티어.png
+*.local
